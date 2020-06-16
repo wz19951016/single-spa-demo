@@ -78,32 +78,27 @@ module.exports = {
         },
 		// Proxy config for development purposes. In production, you would configure you webserver to do something similar.
         proxy: {
-            "/": {
-                bypass: function(req, res, proxyOptions) {
-                    return "index.html"
-                }
-            },
-            "/app1": {
+            "/app1/**": {
                 target: "http://localhost:9001",
                 pathRewrite: {"^/app1" : ""}
             },
-            "/app2": {
+            "/app2/**": {
                 target: "http://localhost:9002",
                 pathRewrite: {"^/app2" : ""}
             },
-            "/app3": {
+            "/app3/**": {
                 target: "http://localhost:9003",
                 pathRewrite: {"^/app3" : ""}
             },
-            "/app4": {
+            "/app4/**": {
                 target: "http://localhost:9004",
                 pathRewrite: {"^/app4" : ""}
             },
-            "/app5": {
+            "/app5/**": {
                 target: "http://localhost:9005",
                 pathRewrite: {"^/app5" : ""}
             },
-            "/app6": {
+            "/app6/**": {
                 target: "http://localhost:8080",
                 pathRewrite: {"^/app6" : ""}
             }
