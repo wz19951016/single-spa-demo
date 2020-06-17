@@ -2,7 +2,7 @@
  * @Author: wangzhong
  * @Date: 2020-06-09 17:36:49
  * @LastEditors: wangzhong
- * @LastEditTime: 2020-06-15 13:51:33
+ * @LastEditTime: 2020-06-17 16:49:40
  * @FilePath: /single-spa-portal-example/portal/src/portal.js
  */ 
 import 'zone.js';
@@ -15,24 +15,34 @@ async function init() {
     const loadingPromises = [];
 
     // app1: The URL "/app1/..." is being redirected to "http://localhost:9001/..." this is done by the webpack proxy (webpack.config.js)
-    loadingPromises.push(loadApp('app1', '/app1', '/app1/singleSpaEntry.js', '/app1/store.js', globalEventDistributor));
+    loadingPromises.push(loadApp('app1', '/app1', 'http://localhost:9001/singleSpaEntry.js', 'http://localhost:9001/store.js', globalEventDistributor));
 
     // app2: The URL "/app2/..." is being redirected to "http://localhost:9002/..." this is done by the webpack proxy (webpack.config.js)
-    loadingPromises.push(loadApp('app2', '/app2', '/app2/singleSpaEntry.js', '/app2/store.js', globalEventDistributor));
+    loadingPromises.push(loadApp('app2', '/app2', 'http://localhost:9002/singleSpaEntry.js', 'http://localhost:9002/store.js', globalEventDistributor));
 
     // app3: The URL "/app3/..." is being redirected to "http://localhost:9003/..." this is done by the webpack proxy (webpack.config.js)
-    loadingPromises.push(loadApp('app3', '/app3', '/app3/singleSpaEntry.js', null, null)); // does not have a store, so we pass null
+    loadingPromises.push(loadApp('app3', '/app3', 'http://localhost:9003/singleSpaEntry.js', null, null)); // does not have a store, so we pass null
 
     // app3: The URL "/app4/..." is being redirected to "http://localhost:9004/..." this is done by the webpack proxy (webpack.config.js)
-    loadingPromises.push(loadApp('app4', '/app4', '/app4/singleSpaEntry.js', null, null)); // does not have a store, so we pass null
+    loadingPromises.push(loadApp('app4', '/app4', 'http://localhost:9004/singleSpaEntry.js', null, null)); // does not have a store, so we pass null
 
     // app5: The URL "/app5/..." is being redirected to "http://localhost:9005/..." this is done by the webpack proxy (webpack.config.js)
-    loadingPromises.push(loadApp('app5', '/app5', '/app5/singleSpaEntry.js', '/app5/store.js', globalEventDistributor));
+    loadingPromises.push(loadApp('app5', '/app5', 'http://localhost:9005/singleSpaEntry.js', 'http://localhost:9005/store.js', globalEventDistributor));
 
-    loadingPromises.push(loadApp('app6', '/app6', '/app6/singleSpaEntry.js', null, null));
+    loadingPromises.push(loadApp('app6', '/app6', 'http://localhost:8080/release/singleSpaEntry.js', null, null));
 
     // wait until all stores are loaded and all apps are registered with singleSpa
     await Promise.all(loadingPromises);
+
+    window.addEventListener(`single-spa:no-app-change`, () => {
+        const activedApps = getMountedApps()
+        console.log(activedApps)
+        // if (activedApps.length === 0) {
+        //   navigateToUrl(path)
+        // }
+      }, {
+        once: true
+      })
 
     singleSpa.start();
 }

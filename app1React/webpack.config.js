@@ -1,3 +1,10 @@
+/*
+ * @Author: wangzhong
+ * @Date: 2020-06-09 17:36:49
+ * @LastEditors: wangzhong
+ * @LastEditTime: 2020-06-17 15:13:16
+ * @FilePath: /single-spa-portal-example/app1React/webpack.config.js
+ */ 
 const path = require('path');
 
 module.exports = {
@@ -38,5 +45,12 @@ module.exports = {
 
     devtool: 'eval-source-map',
     // devtool: 'none',
-
+    devServer: {
+        port: 9001,
+        host: '0.0.0.0',
+        contentBase: './release',
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      }
 };

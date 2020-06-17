@@ -2,7 +2,7 @@
  * @Author: wangzhong
  * @Date: 2020-06-16 14:43:59
  * @LastEditors: wangzhong
- * @LastEditTime: 2020-06-16 16:28:07
+ * @LastEditTime: 2020-06-17 16:49:49
  * @FilePath: /single-spa-portal-example/portal/src/App.js
  */ 
 import React from "react";

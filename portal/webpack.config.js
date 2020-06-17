@@ -2,7 +2,7 @@
  * @Author: wangzhong
  * @Date: 2020-06-09 17:36:49
  * @LastEditors: wangzhong
- * @LastEditTime: 2020-06-16 16:58:29
+ * @LastEditTime: 2020-06-17 17:07:24
  * @FilePath: /single-spa-portal-example/portal/webpack.config.js
  */ 
 const path = require('path');
@@ -14,12 +14,14 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
 	entry: {
+        systemjs: "libs/system.js",
         main: 'src/App.js',
-        single: "src/portal.js"
+        single: "src/portal.js",
 	},
 	output: {
 		filename: '[name].js',
-		path: path.resolve(__dirname, 'release'),
+        path: path.resolve(__dirname, 'release'),
+        publicPath: '/',
 	},
 	module: {
 		rules: [
@@ -53,22 +55,24 @@ module.exports = {
 	},
 	plugins: [
         CopyWebpackPlugin([
-            {from: path.resolve(__dirname, 'src/index.html')},
+            // {from: path.resolve(__dirname, 'src/index.html')},
             {from: path.resolve(__dirname, 'src/style.css')},
-            {from: path.resolve(__dirname, 'libs/system.js')},
+            // {from: path.resolve(__dirname, 'libs/system.js')},
         ]),
         new CleanWebpackPlugin(['release']),
         new HtmlWebPackPlugin({
             template: path.resolve(__dirname, "src/index.html"),
             filename: "index.html"
         })
-	],
+    ],
+    node: {
+        fs: 'empty'
+    },
 	devtool: 'source-map',
 	externals: [
 	],
     mode: 'development',
     devServer: {
-		contentBase: './release',
         historyApiFallback: true,
         watchOptions: { aggregateTimeout: 300, poll: 1000 },
         headers: {
@@ -76,32 +80,33 @@ module.exports = {
             "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
             "Access-Control-Allow-Headers": "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild"
         },
+        host: "0.0.0.0"
 		// Proxy config for development purposes. In production, you would configure you webserver to do something similar.
-        proxy: {
-            "/app1/**": {
-                target: "http://localhost:9001",
-                pathRewrite: {"^/app1" : ""}
-            },
-            "/app2/**": {
-                target: "http://localhost:9002",
-                pathRewrite: {"^/app2" : ""}
-            },
-            "/app3/**": {
-                target: "http://localhost:9003",
-                pathRewrite: {"^/app3" : ""}
-            },
-            "/app4/**": {
-                target: "http://localhost:9004",
-                pathRewrite: {"^/app4" : ""}
-            },
-            "/app5/**": {
-                target: "http://localhost:9005",
-                pathRewrite: {"^/app5" : ""}
-            },
-            "/app6/**": {
-                target: "http://localhost:8080",
-                pathRewrite: {"^/app6" : ""}
-            }
-        }
+        // proxy: {
+        //     "/app1/**": {
+        //         target: "http://localhost:9001",
+        //         pathRewrite: {"^/app1" : ""}
+        //     },
+        //     "/app2/**": {
+        //         target: "http://localhost:9002",
+        //         pathRewrite: {"^/app2" : ""}
+        //     },
+        //     "/app3/**": {
+        //         target: "http://localhost:9003",
+        //         pathRewrite: {"^/app3" : ""}
+        //     },
+        //     "/app4/**": {
+        //         target: "http://localhost:9004",
+        //         pathRewrite: {"^/app4" : ""}
+        //     },
+        //     "/app5/**": {
+        //         target: "http://localhost:9005",
+        //         pathRewrite: {"^/app5" : ""}
+        //     },
+        //     "/app6/**": {
+        //         target: "http://localhost:8080",
+        //         pathRewrite: {"^/app6" : ""}
+        //     }
+        // }
     }
 };
