@@ -1,7 +1,14 @@
+/*
+ * @Author: wangzhong
+ * @Date: 2020-06-09 17:36:49
+ * @LastEditors: wangzhong
+ * @LastEditTime: 2020-06-18 18:10:37
+ * @FilePath: /single-spa-portal-example/app1React/src/root.component.js
+ */ 
 import React from 'react';
 import {Provider, connect} from 'react-redux';
 import Counter from './counter';
-import reactLogo from '../assets/react-logo.png'
+import reactLogo from 'static/react-logo.png'
 
 
 export default class Root extends React.Component {

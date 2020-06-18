@@ -2,7 +2,7 @@
  * @Author: wangzhong
  * @Date: 2020-06-16 14:43:59
  * @LastEditors: wangzhong
- * @LastEditTime: 2020-06-17 16:49:49
+ * @LastEditTime: 2020-06-18 09:12:48
  * @FilePath: /single-spa-portal-example/portal/src/App.js
  */ 
 import React from "react";
@@ -30,7 +30,7 @@ const App = () => {
           <Link to="/app5">app5</Link>
         </li>
         <li key="key6">
-          <Link to="/app6">app6</Link>
+          <Link to="/app6/l">app6</Link>
         </li>
       </ul>
     </div>

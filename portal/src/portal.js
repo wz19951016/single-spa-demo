@@ -2,7 +2,7 @@
  * @Author: wangzhong
  * @Date: 2020-06-09 17:36:49
  * @LastEditors: wangzhong
- * @LastEditTime: 2020-06-17 16:49:40
+ * @LastEditTime: 2020-06-18 11:47:37
  * @FilePath: /single-spa-portal-example/portal/src/portal.js
  */ 
 import 'zone.js';
@@ -29,20 +29,10 @@ async function init() {
     // app5: The URL "/app5/..." is being redirected to "http://localhost:9005/..." this is done by the webpack proxy (webpack.config.js)
     loadingPromises.push(loadApp('app5', '/app5', 'http://localhost:9005/singleSpaEntry.js', 'http://localhost:9005/store.js', globalEventDistributor));
 
-    loadingPromises.push(loadApp('app6', '/app6', 'http://localhost:8080/release/singleSpaEntry.js', null, null));
+    loadingPromises.push(loadApp('app6', '/app6', 'http://localhost:8080/singleSpaEntry.js', null, null));
 
     // wait until all stores are loaded and all apps are registered with singleSpa
     await Promise.all(loadingPromises);
-
-    window.addEventListener(`single-spa:no-app-change`, () => {
-        const activedApps = getMountedApps()
-        console.log(activedApps)
-        // if (activedApps.length === 0) {
-        //   navigateToUrl(path)
-        // }
-      }, {
-        once: true
-      })
 
     singleSpa.start();
 }
