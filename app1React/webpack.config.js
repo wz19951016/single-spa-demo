@@ -12,11 +12,6 @@ module.exports = {
         singleSpaEntry: './src/singleSpaEntry.js',
         store: './src/store.js'
     },
-    resolve: {
-        alias: {
-            "static": path.resolve(__dirname, "assets")
-        },
-    },
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'release'),
@@ -38,11 +33,14 @@ module.exports = {
                     {
                         loader: 'file-loader',
                         options: {
-                            publicPath: '/app1/',
-                            outputPath: "/app1"
+                            publicPath: 'http://localhost:9001/',
                         }
                     }
                 ]
+            },
+            {
+              test: /\.css$/,
+              use: ["style-loader", "css-loader"]
             }
         ],
     },
